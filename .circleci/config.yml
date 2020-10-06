@@ -92,16 +92,16 @@ workflows:
   version: 2
   test:
     jobs:
-      - go-test:
-          filters:
-            tags:
-              only: /.*/
-      - test-publish
+      # - go-test:
+      #     filters:
+      #       tags:
+      #         only: /.*/
+      # - test-publish
       - publish:
           filters:
             tags:
               only: /.*/
             branches:
               ignore: /.*/
-          requires:
-            - go-test
+          # requires:
+          #   - go-test
