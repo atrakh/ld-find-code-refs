@@ -37,11 +37,11 @@ echo-release-notes:
 
 define publish_docker
 	test $(1) || (echo "Please provide tag"; exit 1)
-	docker build -t launchdarkly/$(3):$(1) build/package/$(4)
-	docker push launchdarkly/$(3):$(1)
+	docker build -t atrakh/$(3):$(1) build/package/$(4)
+	docker push atrakh/$(3):$(1)
 	# test $(2) && (echo "Not pushing latest tag for prerelease")
-	test $(2) || docker tag launchdarkly/$(3):$(1) launchdarkly/$(3):latest
-	test $(2) || docker push launchdarkly/$(3):latest
+	test $(2) || docker tag atrakh/$(3):$(1) atrakh/$(3):latest
+	test $(2) || docker push atrakh/$(3):latest
 endef
 
 publish-cli-docker: compile-linux-binary
@@ -58,10 +58,10 @@ validate-circle-orb:
 	circleci orb validate build/package/circleci/orb.yml || (echo "Unable to validate orb"; exit 1)
 
 publish-dev-circle-orb: validate-circle-orb
-	circleci orb publish build/package/circleci/orb.yml launchdarkly/ld-find-code-refs@dev:$(TAG)
+	circleci orb publish build/package/circleci/orb.yml atrakh/ld-find-code-refs@dev:$(TAG)
 
 publish-release-circle-orb: validate-circle-orb
-	circleci orb publish build/package/circleci/orb.yml launchdarkly/ld-find-code-refs@$(TAG)
+	circleci orb publish build/package/circleci/orb.yml atrakh/ld-find-code-refs@$(TAG)
 
 publish-all: publish-cli-docker publish-github-actions-docker publish-bitbucket-pipelines-docker publish-release-circle-orb
 
